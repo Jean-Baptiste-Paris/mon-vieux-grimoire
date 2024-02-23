@@ -1,18 +1,23 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Book = require('./models/Book')
+const path = require('path')
+const booksRoutes = require('./routes/books')
+const userRoutes = require('./routes/user')
 
 const app = express()
 
 const username = encodeURIComponent('belmongo')
 const password = encodeURIComponent('4x1ICRDftT4sn9P1')
 const cluster = 'opencluster.3lctlmv.mongodb.net'
+const dbName = 'monvieuxgrimoire'
 mongoose
   .connect(
-    `mongodb+srv://${username}:${password}@${cluster}/?retryWrites=true&w=majority&appName=OpenCluster`
+    `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=OpenCluster`
   )
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée'))
+  .catch((error) =>
+    console.log('Connexion à MongoDB échouée. Erreur : '.error.message)
+  )
 
 app.use(express.json())
 app.use((req, res, next) => {
@@ -26,6 +31,17 @@ app.use((req, res, next) => {
     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
   )
   next()
+})
+
+app.use('/api/books', booksRoutes)
+app.use('/api/auth', userRoutes)
+app.use('/images', express.static(path.join(__dirname, 'storage/images')))
+
+app.use((error, req, res, next) => {
+  console.error(error)
+  res
+    .status(error.status || 500)
+    .json({ error: error.message || 'Erreur interne du serveur' })
 })
 
 module.exports = app
