@@ -6,13 +6,13 @@ const userRoutes = require('./routes/user')
 
 const app = express()
 
-const username = encodeURIComponent('belmongo')
-const password = encodeURIComponent('4x1ICRDftT4sn9P1')
+const username = 'belmongo'
+const password = '4x1ICRDftT4sn9P1'
 const cluster = 'opencluster.3lctlmv.mongodb.net'
 const dbName = 'monvieuxgrimoire'
 mongoose
   .connect(
-    `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=OpenCluster`
+    'mongodb+srv://belmongo:4x1ICRDftT4sn9P1@opencluster.3lctlmv.mongodb.net/?retryWrites=true&w=majority&appName=OpenCluster'
   )
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) =>

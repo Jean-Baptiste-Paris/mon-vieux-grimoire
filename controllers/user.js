@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/User')
+const { tokenSecret } = require('../constants')
 
 exports.signup = (req, res, next) => {
   bcrypt
@@ -14,7 +15,9 @@ exports.signup = (req, res, next) => {
       user
         .save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
-        .catch((error) => res.status(400).json({ error }))
+        .catch((error) => {
+          res.status(400).json({ error })
+        })
     })
     .catch((error) => res.status(500).json({ error }))
 }
@@ -39,7 +42,7 @@ exports.login = (req, res, next) => {
 
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', {
+            token: jwt.sign({ userId: user._id }, tokenSecret, {
               expiresIn: '24h',
             }),
           })
