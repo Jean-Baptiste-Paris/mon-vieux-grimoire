@@ -1,8 +1,20 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const Book = require('./models/Book')
 
 const app = express()
 
-// Gestion des erreurs CORS
+const username = encodeURIComponent('belmongo')
+const password = encodeURIComponent('4x1ICRDftT4sn9P1')
+const cluster = 'opencluster.3lctlmv.mongodb.net'
+mongoose
+  .connect(
+    `mongodb+srv://${username}:${password}@${cluster}/?retryWrites=true&w=majority&appName=OpenCluster`
+  )
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée'))
+
+app.use(express.json())
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
@@ -14,25 +26,6 @@ app.use((req, res, next) => {
     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
   )
   next()
-})
-
-app.use((req, res, next) => {
-  console.log('Requête reçue !')
-  next()
-})
-
-app.use((req, res, next) => {
-  res.status(201)
-  next()
-})
-
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' })
-  next()
-})
-
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !')
 })
 
 module.exports = app
