@@ -1,3 +1,4 @@
+const fs = require('fs').promises
 const Book = require('../../models/Book')
 
 const deleteBook = async (req, res, next) => {

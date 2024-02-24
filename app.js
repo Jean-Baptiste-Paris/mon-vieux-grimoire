@@ -36,7 +36,10 @@ app.use((req, res, next) => {
 
 app.use('/api/books', booksRoutes)
 app.use('/api/auth', userRoutes)
-app.use('/images', express.static(path.join(__dirname, 'storage/images')))
+app.use(
+  '/storage/images',
+  express.static(path.join(__dirname, 'storage/images'))
+)
 
 app.use((error, req, res, next) => {
   console.error(error)
