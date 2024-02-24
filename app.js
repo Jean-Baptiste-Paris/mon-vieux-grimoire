@@ -7,9 +7,13 @@ const userRoutes = require('./routes/user')
 
 const app = express()
 
+const dbUser = process.env.DB_USER
+const dbPass = process.env.DB_PASS
+const dbName = process.env.DB_NAME
+
 mongoose
   .connect(
-    'mongodb+srv://belmongo:4x1ICRDftT4sn9P1@opencluster.3lctlmv.mongodb.net/monVieuxGrimoire?retryWrites=true&w=majority&appName=OpenCluster'
+    `mongodb+srv://${dbUser}:${dbPass}@opencluster.3lctlmv.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=OpenCluster`
   )
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) =>
