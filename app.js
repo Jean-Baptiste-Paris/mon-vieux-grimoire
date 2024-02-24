@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
@@ -6,17 +7,13 @@ const userRoutes = require('./routes/user')
 
 const app = express()
 
-const username = 'belmongo'
-const password = '4x1ICRDftT4sn9P1'
-const cluster = 'opencluster.3lctlmv.mongodb.net'
-const dbName = 'monvieuxgrimoire'
 mongoose
   .connect(
-    'mongodb+srv://belmongo:4x1ICRDftT4sn9P1@opencluster.3lctlmv.mongodb.net/?retryWrites=true&w=majority&appName=OpenCluster'
+    'mongodb+srv://belmongo:4x1ICRDftT4sn9P1@opencluster.3lctlmv.mongodb.net/monVieuxGrimoire?retryWrites=true&w=majority&appName=OpenCluster'
   )
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch((error) =>
-    console.log('Connexion à MongoDB échouée. Erreur : '.error.message)
+    console.log('Connexion à MongoDB échouée. Erreur : ', error.message)
   )
 
 app.use(express.json())
