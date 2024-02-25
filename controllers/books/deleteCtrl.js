@@ -14,7 +14,7 @@ const deleteBook = async (req, res, next) => {
     }
 
     const filename = book.imageUrl.split('/images/')[1]
-    await fs.unlink(`storage/images/${filename}`)
+    await fs.unlink(`uploads/images/${filename}`)
     await Book.deleteOne({ _id: req.params.id })
 
     res.status(200).json({ message: 'Livre supprimé' })

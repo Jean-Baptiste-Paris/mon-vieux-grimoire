@@ -11,7 +11,7 @@ const createBook = async (req, res, next) => {
       userId: req.auth.userId,
       ratings: [],
       averageRating: 0,
-      imageUrl: `${req.protocol}://${req.get('host')}/storage/images/${
+      imageUrl: `${req.protocol}://${req.get('host')}/uploads/images/${
         req.file.filename
       }`,
     })
