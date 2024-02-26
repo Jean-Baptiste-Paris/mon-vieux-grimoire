@@ -41,11 +41,4 @@ app.use(
   express.static(path.join(__dirname, 'uploads/images'))
 )
 
-app.use((error, req, res, next) => {
-  console.error(error)
-  res
-    .status(error.status || 500)
-    .json({ error: error.message || 'Erreur interne du serveur' })
-})
-
 module.exports = app
