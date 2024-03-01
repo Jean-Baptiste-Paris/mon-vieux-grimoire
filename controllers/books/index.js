@@ -1,6 +1,6 @@
 const getAllBooks = require('./getAllCtrl')
 const getOneBook = require('./getOneCtrl')
-// const getBestBooks = require('./getBestCtrl')
+const getBestRated = require('./getBestCtrl')
 const createBook = require('./createCtrl')
 const updateBook = require('./updateCtrl')
 const deleteBook = require('./deleteCtrl')
@@ -9,7 +9,7 @@ const deleteBook = require('./deleteCtrl')
 module.exports = {
   getAllBooks,
   getOneBook,
-  //   getBestBooks,
+  getBestRated,
   createBook,
   updateBook,
   deleteBook,
