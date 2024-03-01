@@ -4,7 +4,7 @@ const getBestRated = require('./getBestCtrl')
 const createBook = require('./createCtrl')
 const updateBook = require('./updateCtrl')
 const deleteBook = require('./deleteCtrl')
-// const rateBooks = require('./rateCtrl')
+const rateBook = require('./rateCtrl')
 
 module.exports = {
   getAllBooks,
@@ -13,5 +13,5 @@ module.exports = {
   createBook,
   updateBook,
   deleteBook,
-  //   rateBooks,
+  rateBook,
 }
