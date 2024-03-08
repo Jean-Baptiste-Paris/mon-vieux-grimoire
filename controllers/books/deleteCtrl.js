@@ -9,7 +9,7 @@ const deleteBook = async (req, res, next) => {
       return res.status(404).json({ message: 'Livre non trouvé' })
     }
 
-    if (book.userId != req.auth.userId) {
+    if (book.userId !== req.auth.userId) {
       return res.status(401).json({ message: 'Non autorisé' })
     }
 

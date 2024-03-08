@@ -1,4 +1,5 @@
 const Book = require('../../models/Book')
+const updateBook = require('./updateCtrl')
 
 const rateBook = async (req, res, next) => {
   try {
@@ -31,8 +32,8 @@ const rateBook = async (req, res, next) => {
       grade: grade,
     }
     book.ratings.push(rating)
-    await updateAverageRating(book)
-    await book.save()
+    updatedBook = updateAverageRating(book)
+    await updatedBook.save()
 
     res.status(200).json(book)
   } catch (error) {
@@ -40,23 +41,20 @@ const rateBook = async (req, res, next) => {
   }
 }
 
-const updateAverageRating = async (book) => {
-  try {
-    const ratings = book.ratings
-    const total = ratings.length
+const updateAverageRating = (book) => {
+  const ratings = book.ratings
+  const total = ratings.length
 
-    if (total === 0) {
-      return
-    }
-
-    const sum = ratings.reduce((acc, rating) => acc + rating.grade, 0)
-    const averageRating = sum / total
-
-    book.averageRating = averageRating
-    await book.save()
-  } catch (error) {
-    throw error
+  if (total === 0) {
+    return book
   }
+
+  const sum = ratings.reduce((acc, rating) => acc + rating.grade, 0)
+  const averageRating = sum / total
+
+  book.averageRating = averageRating
+
+  return book
 }
 
 module.exports = rateBook
