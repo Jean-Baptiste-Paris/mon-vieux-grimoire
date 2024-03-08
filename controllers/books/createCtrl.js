@@ -1,4 +1,5 @@
 const Book = require('../../models/Book')
+const updateAverageRating = require('../../utils/books/updateAverageRating')
 
 const createBook = async (req, res, next) => {
   try {
@@ -6,11 +7,11 @@ const createBook = async (req, res, next) => {
     delete bookObject._id
     delete bookObject.userId
 
+    const updatedBookObject = updateAverageRating(bookObject)
+
     const book = new Book({
-      ...bookObject,
+      ...updatedBookObject,
       userId: req.auth.userId,
-      ratings: [],
-      averageRating: 0,
       imageUrl: `${req.protocol}://${req.get('host')}/uploads/images/${
         req.file.filename
       }`,
